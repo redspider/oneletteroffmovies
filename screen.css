@@ -223,6 +223,15 @@ div.message {
         height: 48px;
     }
     
+    .message img.profile_image {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 48px;
+        height: 48px;
+        opacity: 0.2;
+    }
+    
     .message div.ranking {
         position: absolute;
         top: 4px;
