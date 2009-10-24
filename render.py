@@ -16,7 +16,7 @@ conn.set_client_encoding('utf8')
 
 
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-cur.execute("SELECT qname, author_name, author_id, profile_image, movie, count FROM movies JOIN entries ON movies.best = entries.id WHERE count > 1 ORDER BY movies.count DESC LIMIT 30")
+cur.execute("SELECT qname, author_name, author_id, profile_image, movie, count FROM movies JOIN entries ON movies.best = entries.id WHERE count > 1 AND movie != '' ORDER BY movies.count DESC LIMIT 30")
 results = cur.fetchall()
 
 template = Template(open("index.html","r").read())

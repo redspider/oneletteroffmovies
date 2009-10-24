@@ -80,6 +80,9 @@ while True:
             continue
         cur.execute("""SELECT add_movie(%s, %s, %s, %s, %s, %s)""", [int(m['id']), m['from_user'], str(m['from_user_id']), m['profile_image_url'], clean(m['text']), normalize(m['text'])])
         conn.commit()
+        if 'http://' in m['text']:
+            # Skip anything with a link
+            continue
         queue.append(m)
   
     if len(queue) == 0:
@@ -88,13 +91,13 @@ while True:
     sconn = stomp.Connection()
     sconn.start()
     sconn.connect()
-    delay = 10.0 / len(queue)
+    delay = 20.0 / len(queue)
     if delay < 1.0:
         delay = 1.0
 
     print "Queue length: %d" % len(queue)
     
-    for m in queue:
+    for m in queue[:20]:
         m['text'] = for_display(m['text'])
         sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
         time.sleep(delay)
