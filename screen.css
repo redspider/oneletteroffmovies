@@ -329,7 +329,8 @@ div.product {
     position: relative;
     color: #ffffff;
     margin: 2px;
-    height: 40px;
+    margin-bottom: 5px;
+    height: 16px;
     font-weight: bold;
 }
 
@@ -338,6 +339,45 @@ div.product {
         top: 2px;
         right: 2px;
     }
+
+a.buy_now {
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    display: block;
+    width: 80px;
+    height: 15px;
+    background-color: #da3;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    padding: 2px;
+    
+     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+a.free {
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    display: block;
+    width: 80px;
+    height: 15px;
+    background-color: #ad3;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    padding: 2px;
+    
+     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 
 #redspider {
     position: absolute;
