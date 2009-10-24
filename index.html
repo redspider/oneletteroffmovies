@@ -1,10 +1,61 @@
 <html>
+    <head>
+        <title>One Letter Off Movies</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js"></script>
+        <script type="text/javascript" src="/more.js"></script>
+        <script type="text/javascript" src="/static/Orbited.js"></script>
+        <script type="text/javascript">
+            TCPSocket = Orbited.TCPSocket
+        </script>
+        <script type="text/javascript" src="/static/protocols/stomp/stomp.js"></script>
+        <script type="text/javascript" src="/realtime.js"></script>
+        <link rel="stylesheet" type="text/css" href="screen.css" />
+        <link rel="stylesheet" type="text/css" media="print" href="print.css" />
+        <link rel="stylesheet" href="mobile.css" media="handheld, only screen and (max-device-width: 480px)" type="text/css" />
+    </head>
     <body>
-	<p>
-		Hey everyone, I know it looks like crap right now, I'm working on it as we speak. The list below is the most commonly repeated #oneletteroffmovies entries. The count gives a rough indication of how often the scanner has seen those entries but please keep in mind that givent he volume we're only able to get a sample of the stream.
-	</p>
-        % for r in results:
-        <div>${r['movie']} (${r['count']})</div>
-        % endfor
+        <ul class="tabs screen_only">
+            <li class="selected">OneLetterOffMovies</li>
+            <div id="redspider">
+                <a href="http://redspider.co.nz" target="_blank" style="color: #aaa; text-decoration: none"><span style="color: #722">red</span>spider.co.nz</a>
+            </div>
+        </ul>
+        <div class="column">
+            <h3>Best of</h3>
+            <div class="search">#oneletteroffmovies</div>
+            <div id="twitter">
+                % for r in results:
+                <div class="message">
+                    <div class="from_user">
+                        <a href="http://twitter.com/${r['from_user']}">${r['from_user']}</a>
+                        <img class="profile_image" src="${r['profile_image']}" />
+                    </div>
+                    <div>${r['movie']}</div>
+                </div>
+                % endfor
+            </div>
+        </div>
+        <div class="column">
+            <h3>Realtime</h3>
+            <div class="search">#oneletteroffmovies</div>
+            <div id="twitter_links">
+            </div>
+        </div>
+        <div class="column">
+            <h3>What the hell?</h3>
+            <div class="search"></div>
+            <div>
+                <p>An explanation of what the hell is going on will appear here..soon..when I get a moment to type it.</p>
+            </div>
+        </div>
+        
+        
+        <script type="text/javascript">
+            window.addEvent('domready', function () {
+                dashboard_init();
+            });
+        </script>
+        
     </body>
 </html>
+    
