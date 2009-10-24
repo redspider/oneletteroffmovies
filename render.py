@@ -20,6 +20,9 @@ cur.execute("SELECT qname, author_name, author_id, profile_image, movie, count F
 results = cur.fetchall()
 
 template = Template(open("index.html","r").read())
-print template.render(results=results)
+out_handle = open('output/index.html','w')
+out_handle.write(template.render(results=results))
+out_handle.close()
+
 
 
