@@ -11,7 +11,9 @@ import re
 import psycopg2, psycopg2.extras
 from mako.template import Template
 
-conn = psycopg2.connect("dbname='oneletteroffmovies' user='richard' host='localhost'")
+conn = psycopg2.connect("dbname='oneletteroffmovies'")
+conn.set_client_encoding('utf8')
+
 
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 cur.execute("SELECT qname, author_name, author_id, profile_image, movie, count FROM movies JOIN entries ON movies.best = entries.id WHERE count > 1 ORDER BY movies.count DESC LIMIT 10")

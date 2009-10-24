@@ -10,7 +10,9 @@ import random
 import re
 import psycopg2
 
-conn = psycopg2.connect("dbname='oneletteroffmovies' user='richard' host='localhost'")
+conn = psycopg2.connect("dbname='oneletteroffmovies'")
+
+conn.set_client_encoding('utf8')
 
 class TwitterSearch(object):
     last_id = None
@@ -27,6 +29,7 @@ class TwitterSearch(object):
         query = dict(q=self.term)
         if last_id:
             query['since_id'] = last_id
+            query['rpp'] = 100
 	try:
         	fh = urllib2.urlopen('http://search.twitter.com/search.json?%s' % urllib.urlencode(query))
 	except Exception, e:
@@ -61,9 +64,8 @@ cur = conn.cursor()
 cur.execute("SELECT MAX(id) FROM entries")
 last_id = cur.fetchone()
 
-for m in ts.fetch(500, last_id):
+for m in ts.fetch(100000, last_id):
     cur.execute("""SELECT add_movie(%s, %s, %s, %s, %s, %s)""", [int(m['id']), m['from_user'], str(m['from_user_id']), m['profile_image_url'], clean(m['text']), normalize(m['text'])])
-    print clean(m['text'])
     conn.commit()
     cur.execute("SELECT MAX(id) FROM entries")
     last_id = cur.fetchone()
