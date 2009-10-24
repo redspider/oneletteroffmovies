@@ -1,5 +1,8 @@
 <html>
     <body>
+	<p>
+		Hey everyone, I know it looks like crap right now, I'm working on it as we speak. The list below is the most commonly repeated #oneletteroffmovies entries. The count gives a rough indication of how often the scanner has seen those entries but please keep in mind that givent he volume we're only able to get a sample of the stream.
+	</p>
         % for r in results:
         <div>${r['movie']} (${r['count']})</div>
         % endfor
