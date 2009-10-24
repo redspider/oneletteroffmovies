@@ -91,14 +91,16 @@ while True:
     sconn = stomp.Connection()
     sconn.start()
     sconn.connect()
-    delay = 20.0 / len(queue)
+    delay = 30.0 / len(queue)
     if delay < 1.0:
         delay = 1.0
 
     print "Queue length: %d" % len(queue)
     
-    for m in queue[:20]:
+    for m in queue[:30]:
         m['text'] = for_display(m['text'])
         sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
         time.sleep(delay)
+
+    sconn.disconnect()
 
