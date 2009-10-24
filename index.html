@@ -27,7 +27,7 @@
                 % for r in results:
                 <div class="message">
                     <div class="from_user">
-                        <a href="http://twitter.com/${r['author_id']}">${r['author_id']}</a>
+                        <a href="http://twitter.com/${r['author_id']}">${r['author_id']} and at least ${r['count']} others..</a>
                         <img class="profile_image" src="${r['profile_image']}" />
                     </div>
                     <div>${r['movie']}</div>
@@ -59,6 +59,7 @@
                 <p>
                     I started reading them, like lots of people, and some of them were pretty funny - but like everything there was a lot of chaff as well and I wished I had a "best of" button on my twitter client. Then I figured, well, people seem to RT or at least re-invent a lot of the better ones, so maybe just counting popularity is sufficient. A couple of python scripts, a virtual host and some CSS repurposing later and here you have it, a site which is mostly working. I'm busy trying to figure out how to make this stuff work better. If you're on freenode, come chat in #oneletteroffmovies and make some suggestions.
                 </p>
+                <b>Note: you have to reload if you want to update the top-30, but I suspect they won't change very often from now (although I re-count every 60 seconds)</b>
             </div>
         </div>
         
