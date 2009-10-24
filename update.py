@@ -60,15 +60,29 @@ def normalize(s):
         
 ts = TwitterSearch('#oneletteroffmovies')
 
-cur = conn.cursor()
-cur.execute("SELECT MAX(id) FROM entries")
-last_id = cur.fetchone()
-
-for m in ts.fetch(100000, last_id):
-    cur.execute("""SELECT add_movie(%s, %s, %s, %s, %s, %s)""", [int(m['id']), m['from_user'], str(m['from_user_id']), m['profile_image_url'], clean(m['text']), normalize(m['text'])])
-    conn.commit()
+while True:
+    
+    queue = []
+    cur = conn.cursor()
     cur.execute("SELECT MAX(id) FROM entries")
     last_id = cur.fetchone()
-
-
+    
+    for m in ts.fetch(100000, last_id):
+        if int(m['id']) <= last_id:
+            continue
+        cur.execute("""SELECT add_movie(%s, %s, %s, %s, %s, %s)""", [int(m['id']), m['from_user'], str(m['from_user_id']), m['profile_image_url'], clean(m['text']), normalize(m['text'])])
+        conn.commit()
+        queue.append(m)
+        last_id = int(m['id'])
+    
+    conn = stomp.Connection()
+    conn.start()
+    conn.connect()
+    delay = 10.0 / len(queue)
+    if delay < 0.2:
+        delay = 0.2
+    
+    for m in queue:
+        conn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
+        time.sleep(delay)
 
