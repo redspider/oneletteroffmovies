@@ -7,6 +7,7 @@ html {
 
 body {
     margin: 0px;
+    width: 1024px;
 }
 
 a {
@@ -265,7 +266,7 @@ div.message {
     
 div.header {
     margin: 0px;
-    padding: 2px 0px 0px 0px;
+    padding: 2px 0px 0px 10px;
     margin-bottom: 5px;
     clear: both;
     position: relative;
@@ -274,7 +275,16 @@ div.header {
 }
     .header h1 {
         margin-top: 0px;
-        font-size: 50px;
+        margin-bottom: 0px;
+        font-size: 30px;
+    }
+    
+    .header div.subtitle {
+        font-size: 10pt;
+        font-style: italic;
+        margin-left: 10px;
+        padding-bottom: 5px;
+        color: #ddd;
     }
 
 ul.tabs {
