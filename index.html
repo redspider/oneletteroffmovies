@@ -27,11 +27,13 @@
                 % for i,r in enumerate(results):
                 <div class="message">
                     <div class="from_user">
-                        <a href="http://twitter.com/${r['author_id']}">${r['author_id']} and at least ${r['count']} others..</a>
                         <img class="profile_image_dark" src="${r['profile_image']}" />
                         <div class="ranking">${i+1}</div>
                     </div>
-                    <div>${r['movie']}</div>
+                    <div class="best_of">${r['movie']}</div>
+                    <div class="user_set">
+                        <a href="http://twitter.com/${r['author_id']}">${r['author_id']} and at least ${r['count']} others..</a>
+                    </div>
                 </div>
                 % endfor
             </div>

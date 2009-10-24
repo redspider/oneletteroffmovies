@@ -215,6 +215,26 @@ div.message {
         color: #aaaaaa;
     }
     
+    .message div.best_of {
+        text-decoration: none;
+        font-size: 10pt;
+        color: #ffffff;
+    }
+    
+    .message div.user_set {
+        color: #aaa;
+        text-align: right;
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+    }
+    
+    .message div.user_set a {
+        text-decoration: none;
+        font-size: 8pt;
+        color: #aaaaaa;
+    }
+    
     .message img.profile_image {
         position: absolute;
         top: 4px;
