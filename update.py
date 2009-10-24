@@ -9,6 +9,7 @@ import urllib2, urllib
 import random
 import re
 import psycopg2
+import stomp
 
 conn = psycopg2.connect("dbname='oneletteroffmovies'")
 
@@ -37,9 +38,15 @@ class TwitterSearch(object):
 		return []
         result = simplejson.load(fh)
         
-        
+ 
+        print "Found %d" % len(result['results'])
+       
         return result['results']
         
+def for_display(s):
+    s = s.replace('#oneletteroffmovies','')
+    return s.strip()
+
 def clean(s):
     s = s.replace('#oneletteroffmovies','')
     s = re.sub(r'[rR][tT] ','',s)
@@ -65,24 +72,30 @@ while True:
     queue = []
     cur = conn.cursor()
     cur.execute("SELECT MAX(id) FROM entries")
-    last_id = cur.fetchone()
+    last_id = cur.fetchone()[0]
     
     for m in ts.fetch(100000, last_id):
-        if int(m['id']) <= last_id:
+        if int(m['id']) <= int(last_id):
+            print "Old message"
             continue
         cur.execute("""SELECT add_movie(%s, %s, %s, %s, %s, %s)""", [int(m['id']), m['from_user'], str(m['from_user_id']), m['profile_image_url'], clean(m['text']), normalize(m['text'])])
         conn.commit()
         queue.append(m)
-        last_id = int(m['id'])
-    
-    conn = stomp.Connection()
-    conn.start()
-    conn.connect()
+  
+    if len(queue) == 0:
+        continue
+  
+    sconn = stomp.Connection()
+    sconn.start()
+    sconn.connect()
     delay = 10.0 / len(queue)
-    if delay < 0.2:
-        delay = 0.2
+    if delay < 1.0:
+        delay = 1.0
+
+    print "Queue length: %d" % len(queue)
     
     for m in queue:
-        conn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
+        m['text'] = for_display(m['text'])
+        sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
         time.sleep(delay)
 

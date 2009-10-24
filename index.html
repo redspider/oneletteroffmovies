@@ -23,11 +23,11 @@
         <div class="column">
             <h3>Best of</h3>
             <div class="search">#oneletteroffmovies</div>
-            <div id="twitter">
+            <div>
                 % for r in results:
                 <div class="message">
                     <div class="from_user">
-                        <a href="http://twitter.com/${r['from_user']}">${r['from_user']}</a>
+                        <a href="http://twitter.com/${r['author_id']}">${r['author_id']}</a>
                         <img class="profile_image" src="${r['profile_image']}" />
                     </div>
                     <div>${r['movie']}</div>
@@ -38,7 +38,7 @@
         <div class="column">
             <h3>Realtime</h3>
             <div class="search">#oneletteroffmovies</div>
-            <div id="twitter_links">
+            <div id="twitter">
             </div>
         </div>
         <div class="column">
