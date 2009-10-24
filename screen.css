@@ -223,6 +223,31 @@ div.message {
         height: 48px;
     }
     
+    .message div.ranking {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 48px;
+        height: 48px;
+        font-size: 30px;
+        text-align: right;
+        color: #ccc;
+    }
+    
+div.header {
+    margin: 0px;
+    padding: 2px 0px 0px 0px;
+    margin-bottom: 5px;
+    clear: both;
+    position: relative;
+    background-color: #111;
+    font-size: 12px;
+}
+    .header h1 {
+        margin-top: 0px;
+        font-size: 50px;
+    }
+
 ul.tabs {
     margin: 0px;
     padding: 2px 0px 0px 0px;

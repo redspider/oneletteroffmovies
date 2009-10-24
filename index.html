@@ -14,21 +14,21 @@
         <link rel="stylesheet" href="mobile.css" media="handheld, only screen and (max-device-width: 480px)" type="text/css" />
     </head>
     <body>
-        <ul class="tabs screen_only">
-            <li class="selected">OneLetterOffMovies</li>
+        <div class="header">
+            <h1>One-Letter-Off Movies</h1>
             <div id="redspider">
                 <a href="http://redspider.co.nz" target="_blank" style="color: #aaa; text-decoration: none"><span style="color: #722">red</span>spider.co.nz</a>
             </div>
-        </ul>
+        </div>
         <div class="column">
             <h3>Best of</h3>
             <div class="search">#oneletteroffmovies</div>
             <div>
-                % for r in results:
+                % for i,r in enumerate(results):
                 <div class="message">
                     <div class="from_user">
                         <a href="http://twitter.com/${r['author_id']}">${r['author_id']} and at least ${r['count']} others..</a>
-                        <img class="profile_image" src="${r['profile_image']}" />
+                        <div class="ranking">${i+1}</div>
                     </div>
                     <div>${r['movie']}</div>
                 </div>
