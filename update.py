@@ -86,6 +86,7 @@ while True:
         queue.append(m)
   
     if len(queue) == 0:
+        sleep(60)
         continue
   
     sconn = stomp.Connection()
@@ -93,22 +94,22 @@ while True:
     sconn.connect()
     
     if len(queue) < 60:
-        cur.execute("SELECT author_id, profile_image, movie FROM entries ORDER BY RANDOM() LIMIT %d" % (30-len(queue)))
+        cur.execute("SELECT author_id, profile_image, movie FROM entries ORDER BY RANDOM() LIMIT %d" % (60-len(queue)))
         for (author_id, profile_image, movie) in cur.fetchall():
             queue.append(
                 dict(from_user=author_id, profile_image_url=profile_image, text=movie)
             )
     
     delay = 60.0 / len(queue)
-    if delay < 1.0:
-        delay = 1.0
+    if delay < 1.5:
+        delay = 1.5
 
     print "Queue length: %d" % len(queue)
     
     for m in queue[:60]:
         m['text'] = for_display(m['text'])
         sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
-        time.sleep(delay)
+        time.sleep(random.random()*2*delay)
 
     sconn.disconnect()
 
