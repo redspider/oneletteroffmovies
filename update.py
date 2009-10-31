@@ -101,8 +101,8 @@ while True:
             )
     
     delay = 60.0 / len(queue)
-    if delay < 1.1:
-        delay = 1.1
+    if delay < 1.5:
+        delay = 1.5
 
     print "Queue length: %d" % len(queue)
     
