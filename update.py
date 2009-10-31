@@ -91,6 +91,14 @@ while True:
     sconn = stomp.Connection()
     sconn.start()
     sconn.connect()
+    
+    if len(queue) < 30:
+        cur.execute("SELECT author_id, profile_image, movie FROM entries ORDER BY RANDOM() LIMIT %d" % (30-len(queue)))
+        for (author_id, profile_image, movie) in cur.fetchall():
+            queue.append(
+                dict(from_user=author_id, profile_image_url=profile_image, text=movie)
+            )
+    
     delay = 30.0 / len(queue)
     if delay < 1.0:
         delay = 1.0
