@@ -92,20 +92,20 @@ while True:
     sconn.start()
     sconn.connect()
     
-    if len(queue) < 30:
+    if len(queue) < 60:
         cur.execute("SELECT author_id, profile_image, movie FROM entries ORDER BY RANDOM() LIMIT %d" % (30-len(queue)))
         for (author_id, profile_image, movie) in cur.fetchall():
             queue.append(
                 dict(from_user=author_id, profile_image_url=profile_image, text=movie)
             )
     
-    delay = 30.0 / len(queue)
+    delay = 60.0 / len(queue)
     if delay < 1.0:
         delay = 1.0
 
     print "Queue length: %d" % len(queue)
     
-    for m in queue[:30]:
+    for m in queue[:60]:
         m['text'] = for_display(m['text'])
         sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
         time.sleep(delay)
