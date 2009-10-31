@@ -101,15 +101,15 @@ while True:
             )
     
     delay = 60.0 / len(queue)
-    if delay < 1.5:
-        delay = 1.5
+    if delay < 1.1:
+        delay = 1.1
 
     print "Queue length: %d" % len(queue)
     
     for m in queue[:60]:
         m['text'] = for_display(m['text'])
         sconn.send(simplejson.dumps(m), destination='/topic/oneletteroffmovies')
-        time.sleep(random.random()*2*delay)
+        time.sleep(delay)
 
     sconn.disconnect()
 
